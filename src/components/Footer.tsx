@@ -1,7 +1,7 @@
 import React from "react";
 
-const Footer = (): React.JSX.Element => {
-  return <>Ab m aur kya kahu?</>;
+const Footer = (): JSX.Element => {
+  return <footer>I am footer</footer>;
 };
 
 export default Footer;
