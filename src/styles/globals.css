@@ -2,23 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 
-body {
-  color: black;
-  background-color: rgb(214, 219,220);
-} */
-
-.light {
-  color: black;
-  background-color: rgb(255, 255, 255);
-}
-
-.dark {
-  color: rgb(214, 219,220);
-  background-color: black;
-} 
-
-
 .wrapper{
 
   width:200px;
@@ -109,8 +92,3 @@ body {
   color: #a80808;
   left:15%;
 }
-
-
-
-
-
