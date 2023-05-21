@@ -4,16 +4,16 @@ const Error = ({
   error,
   reset,
 }: {
-  error: Error
+  error: string
   reset: () => void
 }): React.JSX.Element => {
   return (
-    <div className=" min-h-[80vh] text-center items-center flex flex-col justify-center">
+    <div className="text-center items-center flex flex-col justify-center">
       <p className="text-xl text-cyan-400 font-medium p-10">
         There was a problem
       </p>
       <h1 className="my-3 text-7xl font-bold p-7 text-cyan-200">
-        {error.message || "Something went wrong."}
+        {error || "Something went wrong."}
       </h1>
       <div className="flex items-center">
         <button
@@ -22,7 +22,10 @@ const Error = ({
         >
           Try Again
         </button>
-        <Link href="/" className="text-xl text-400 text-cyan-300 underline underline">
+        <Link
+          href="/"
+          className="text-xl text-400 text-cyan-300 underline underline"
+        >
           Go Back Home
         </Link>
       </div>

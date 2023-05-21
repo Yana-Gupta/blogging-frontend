@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 .wrapper{
-
   width:200px;
   height:60px;
   position: relative;
@@ -11,12 +10,14 @@
   top:50%;
   transform: translate(-50%, -50%);
 }
+
+
 .circle{
   width:20px;
   height:20px;
   position: absolute;
   border-radius: 50%;
-  background-color: #d03a3a;
+  background-color: #3aa6d0;
   left:15%;
   transform-origin: 50%;
   animation: circle .5s alternate infinite ease;
@@ -89,6 +90,7 @@
   font-family: 'Lato';
   font-size: 20px;
   letter-spacing: 12px;
-  color: #a80808;
+  color: #5d7eb6;
   left:15%;
+  font-weight:900;
 }

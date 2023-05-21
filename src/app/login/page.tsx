@@ -4,8 +4,9 @@ import React, { use, useContext, useState } from "react"
 import { FormControl, FormLabel, TextField } from "@mui/material"
 import axios from "axios"
 import { Container } from "@mui/material"
-import { UserContext } from "../layout"
 import { useRouter } from "next/navigation"
+import UILoading from "@components/ui/loading"
+import UIError from "@components/ui/error"
 
 interface IUser {
   email: string
@@ -13,22 +14,16 @@ interface IUser {
 }
 
 const Login = (): JSX.Element => {
-  let userToken = useContext(UserContext)
-  let user: IUser
-  let setUser: any
-  ;[user, setUser] = useState({ email: "", password: "" })
+  const [user, setUser] = useState<IUser>({ email: "", password: "" })
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string>("")
 
   const router = useRouter()
 
   const handleSubmit = async (event: any) => {
-    console.log(event.target.email.value)
+    setLoading(true)
 
     try {
-      setUser({
-        email: event.target.email.value,
-        password: event.target.password.value,
-      })
-
       const { data } = await axios.post(
         "http://localhost:4000/api/login",
         user,
@@ -41,24 +36,38 @@ const Login = (): JSX.Element => {
 
       console.log(data)
       if (data.accessToken) {
-        userToken = data.accessToken
+        localStorage.setItem("user", JSON.stringify(data))
       }
-
-      event.preventDefault()
-
+      setLoading(false)
       router.push("/")
-    } catch (error) {
+      event.preventDefault()
+    } catch (error: any) {
+      setLoading(false)
+      setError(error.response.data.message)
+      console.log(error)
       console.log("Error while login is: ", error)
     }
   }
 
-  
+  const loadingMessage = (): JSX.Element => {
+    return <UILoading />
+  }
 
-  return (
-    <Container className="min-h-[90vh] mx-auto text-center w-full flex flex-col items-center align-center text-center">
-      <h1 className="text-center uppercase text-xl tablet:text-3xl laptop:text-5xl desktop:text-5xl">
-        Login to GOOD BLogs
-      </h1>
+  const errorMessage = (): JSX.Element => {
+    return (
+      <UIError
+        error={error}
+        reset={() => {
+          setLoading(false)
+          setError("")
+          router.push("/login")
+        }}
+      />
+    )
+  }
+
+  const formComponent = (): JSX.Element => {
+    return (
       <form
         className="flex flex-col text-center items-center"
         method="post"
@@ -71,6 +80,9 @@ const Login = (): JSX.Element => {
             className="input"
             name="email"
             required
+            onChange={(e) => {
+              setUser({ ...user, email: e.target.value })
+            }}
           />
         </FormControl>
         <FormControl className="my-2">
@@ -80,12 +92,28 @@ const Login = (): JSX.Element => {
             type="password"
             className="input"
             name="password"
+            onChange={(e) => {
+              setUser({ ...user, password: e.target.value })
+            }}
           />
         </FormControl>
         <button type="submit" className="">
           Submit
         </button>
       </form>
+    )
+  }
+
+  return (
+    <Container className="min-h-[90vh] mx-auto text-center w-full flex flex-col items-center align-center text-center">
+      <h1 className="text-center uppercase text-xl tablet:text-3xl laptop:text-5xl desktop:text-5xl">
+        Login to GOOD BLogs
+      </h1>
+
+      {!loading && !error && formComponent()}
+
+      {loading && loadingMessage()}
+      {error && errorMessage()}
     </Container>
   )
 }

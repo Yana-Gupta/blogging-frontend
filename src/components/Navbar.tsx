@@ -2,17 +2,77 @@
 
 import Link from "next/link"
 import React from "react"
-import { useState } from "react"
-
-import { UserContext } from "@/app/layout"
+import { useState, useEffect } from "react"
+import CloseIcon from "@mui/icons-material/Close"
 
 const Navbar = (): JSX.Element => {
-  let userToken = React.useContext(UserContext)
+  // Theme state
   const [dark, setDark] = useState(false)
 
+  // setting user state
+  const [user, setUser] = useState<any>("")
+
+  // prompt show state
+  const [showprompt, setShowPrompt] = useState<boolean>(false)
+
+  // prompt message state
+  const [promptMessage, setPromptMessage] = useState<string>("")
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      var obj: any = JSON.parse(localStorage.getItem("user") || "{}")
+      setUser(obj)
+      console.log(obj)
+    }
+  })
+
+  const deleteToken = (): Promise<any> => {
+    return new Promise((resolve) => {
+      localStorage.removeItem("user")
+      setShowPrompt(true)
+      setPromptMessage("You are logged out! Kindly refresh the page.")
+      resolve("done")
+    })
+  }
+
+  const signIN_UP = (): JSX.Element => {
+    return (
+      <div>
+        <Link href="/login" className="uppercase px-4">
+          Login
+        </Link>
+        <Link href="/signin" className="uppercase px-4">
+          SignUp
+        </Link>
+      </div>
+    )
+  }
+
+  const prompt = (message: string): JSX.Element => {
+    return (
+      <div className="bg-orange-900 h-12 w-full flex align-center items-center justify-center my-auto">
+        <h1>{message}</h1>
+        <button onClick={() => setShowPrompt(false)}>
+          <CloseIcon />
+        </button>
+      </div>
+    )
+  }
+
+  const Logout = (): JSX.Element => {
+    return (
+      <div>
+        <button onClick={deleteToken}>Logout</button>
+      </div>
+    )
+  }
+
   return (
-    <nav className="mx-auto w-full text-center h-28 bg-indigo-900 text-slate-100 ">
-      <div className="flex text-center items-center justify-around align-center h-28">
+    <nav className="mx-auto w-full text-center text-slate-100 ">
+      {/* Modal  */}
+      {showprompt && prompt(promptMessage)}
+
+      <div className="flex text-center items-center bg-indigo-900 justify-around align-center h-28">
         {/* Heading  */}
         <h1 className="text-xl lg:text-3xl font-bold uppercase" id="heading">
           GoodBlogs
@@ -23,6 +83,10 @@ const Navbar = (): JSX.Element => {
           <Link href="/" className="px-8">
             Read Blogs
           </Link>
+          <Link href="create" className="px-8">
+            Create Blog
+          </Link>
+
           <Link href="/about" className="px-8">
             {" "}
             About{" "}
@@ -30,14 +94,9 @@ const Navbar = (): JSX.Element => {
         </div>
 
         {/* Login / Logout Route  */}
-        <div>
-          <Link href="/login" className="uppercase px-4">
-            Login
-          </Link>
-          <Link href="/signin" className="uppercase px-4">
-            SignUp
-          </Link>
-        </div>
+
+        {!user && signIN_UP()}
+        {user && Logout()}
       </div>
 
       {/* Theme changing icon  */}
