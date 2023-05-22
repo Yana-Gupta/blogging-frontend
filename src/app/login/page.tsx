@@ -1,7 +1,7 @@
 "use client"
 
-import React, { use, useContext, useState } from "react"
-import { FormControl, FormLabel, TextField } from "@mui/material"
+import React, { useState } from "react"
+import { FormControl, TextField } from "@mui/material"
 import axios from "axios"
 import { Container } from "@mui/material"
 import { useRouter } from "next/navigation"
@@ -36,7 +36,7 @@ const Login = (): JSX.Element => {
 
       console.log(data)
       if (data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(data))
+        window.localStorage.setItem("user", JSON.stringify(data))
       }
       setLoading(false)
       router.push("/")
@@ -66,6 +66,8 @@ const Login = (): JSX.Element => {
     )
   }
 
+
+  
   const formComponent = (): JSX.Element => {
     return (
       <form

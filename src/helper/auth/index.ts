@@ -1,6 +1,7 @@
-export const getUser = () : JSON | null => {
-  if (localStorage.getItem("user")) {
-    return JSON.parse(localStorage.getItem("user") || "{}")
+export const getUser = (): JSON | null => {
+  const item = localStorage.getItem("user")
+  if (item) {
+    return JSON.parse(item)
   }
   return null
 }
