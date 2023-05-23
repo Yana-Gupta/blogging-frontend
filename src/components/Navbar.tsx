@@ -1,44 +1,39 @@
 "use client"
 
 import Link from "next/link"
-import React from "react"
+import React, { use, useEffect } from "react"
 import { useState } from "react"
+
+// Icons
 import CloseIcon from "@mui/icons-material/Close"
 import LightModeIcon from "@mui/icons-material/LightMode"
 import DarkModeIcon from "@mui/icons-material/DarkMode"
+import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 
 // Methods
 import { getUser } from "@helper/auth/index"
+import { deleteToken } from "@helper/auth/index"
+import { Container } from "@mui/material"
 
 const Navbar = (): JSX.Element => {
+  const user: any = getUser()
+
   // Theme state
   const [dark, setDark] = useState(false)
 
   // prompt message state
   const [promptMessage, setPromptMessage] = useState<string>("")
 
-  const deleteToken = (): Promise<any> => {
-    return new Promise((resolve) => {
-      window.localStorage.removeItem("user")
-      setPromptMessage("You are logged out! Kindly refresh the page.")
-      resolve("done")
-    })
-  }
-
-  // setting user state
-  var user: null | any
-  user = getUser()
-
   const signIN_UP = (): JSX.Element => {
     return (
-      <div>
+      <Container>
         <Link href="/login" className="uppercase px-4">
           Login
         </Link>
         <Link href="/signin" className="uppercase px-4">
           SignUp
         </Link>
-      </div>
+      </Container>
     )
   }
 
@@ -55,8 +50,36 @@ const Navbar = (): JSX.Element => {
 
   const Logout = (): JSX.Element => {
     return (
-      <div>
-        <button onClick={deleteToken}>Logout</button>
+      <div className="h-24 w-28 pt-6">
+        <div id="user-icon">
+          <button
+            className="p-0 rounded-full ring-2 ring-white bg-blue-700"
+            onClick={() => {
+              var options = document.getElementById("options")
+              if (options?.classList.contains("hidden")) {
+                options?.classList.remove("hidden")
+                options?.classList.add("block")
+              } else if (options?.classList.contains("block")) {
+                options?.classList.remove("block")
+                options?.classList.add("hidden")
+              }
+            }}
+          >
+            <AccountCircleIcon sx={{ height: "52px", width: "52px" }} />
+          </button>
+        </div>
+        <div className="hidden rounded bg-gray-200" id="options">
+          <button>View Account</button>
+          <button>View Blogs</button>
+          <button
+            onClick={() => {
+              const msg = deleteToken()
+              setPromptMessage(msg)
+            }}
+          >
+            Logout
+          </button>
+        </div>
       </div>
     )
   }
@@ -99,7 +122,7 @@ const Navbar = (): JSX.Element => {
   }
 
   return (
-    <nav className="mx-auto w-full text-center text-slate-100 ">
+    <nav className=" mx-auto w-full text-center text-slate-100 z-[100]">
       {/* Modal  */}
       {promptMessage && prompt(promptMessage)}
 
@@ -125,9 +148,7 @@ const Navbar = (): JSX.Element => {
         </div>
 
         {/* Login / Logout Route  */}
-
-        {!user && signIN_UP()}
-        {user && Logout()}
+        {user ? Logout() : signIN_UP()}
       </div>
 
       {/* Theme changing icon  */}

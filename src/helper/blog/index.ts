@@ -3,8 +3,10 @@ import axios from "axios"
 export async function fetchBlogs(): Promise<[] | undefined> {
   try {
     const { data, status } = await axios.get("http://localhost:4000/api/post")
-    console.log(data)
-    return data
+    if (status === 200) {
+      return data
+    }
+    return undefined
   } catch (err) {
     console.log(err)
   }

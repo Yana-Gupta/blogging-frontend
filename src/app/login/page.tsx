@@ -34,7 +34,6 @@ const Login = (): JSX.Element => {
         }
       )
 
-      console.log(data)
       if (data.accessToken) {
         window.localStorage.setItem("user", JSON.stringify(data))
       }
@@ -44,7 +43,6 @@ const Login = (): JSX.Element => {
     } catch (error: any) {
       setLoading(false)
       setError(error.response.data.message)
-      console.log(error)
       console.log("Error while login is: ", error)
     }
   }
@@ -66,8 +64,6 @@ const Login = (): JSX.Element => {
     )
   }
 
-
-  
   const formComponent = (): JSX.Element => {
     return (
       <form

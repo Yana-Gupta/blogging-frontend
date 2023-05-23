@@ -14,7 +14,6 @@ const Home = async (): Promise<JSX.Element> => {
     if (typeof res === "object") {
       blog = res
     }
-    console.log(blog)
   })
 
   return (

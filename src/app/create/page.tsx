@@ -13,6 +13,7 @@ import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify"
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft"
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight"
 
+
 // Functions
 import { getUser } from "@helper/auth/index"
 
@@ -27,7 +28,7 @@ interface IPost {
 }
 
 const create = (): JSX.Element => {
-  const user = getUser()
+  const user: any = getUser()
 
   if (!user) {
     throw new AuthRequiredError("You must be logged in to create a post.")
@@ -75,7 +76,7 @@ const create = (): JSX.Element => {
   }
 
   return (
-    <Container sx={{ minHeight: "90vh" }}>
+    <Container sx={{ minHeight: "100vh" }}>
       <h1 className="font-medium text-2xl text-center mt-4">
         CREATE BLOG POST
       </h1>
