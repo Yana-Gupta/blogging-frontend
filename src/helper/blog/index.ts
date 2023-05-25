@@ -1,4 +1,5 @@
 import axios from "axios"
+import { getUser } from "@helper/auth/index"
 
 export async function fetchBlogs(): Promise<[] | undefined> {
   try {
@@ -23,5 +24,24 @@ export async function blog(id: string): Promise<[] | undefined> {
     return []
   } catch (err) {
     console.error(err)
+  }
+}
+
+export async function fetchBlogsForUser(email: string): Promise<[] | undefined> {
+  if (email) {
+    try {
+      var blog: []
+      var userBlogs: any
+      await fetchBlogs().then((res) => {
+        if (res) {
+          blog = res
+          userBlogs = blog.filter((blog) => blog["userEmail"] === "yana@me")
+        }
+      })
+      return userBlogs
+
+    } catch (err) {
+      console.error(err)
+    }
   }
 }

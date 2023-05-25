@@ -14,6 +14,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import { getUser } from "@helper/auth/index"
 import { deleteToken } from "@helper/auth/index"
 
+// next router
+import { useRouter } from "next/navigation"
+
 const Navbar = (): JSX.Element => {
   const user: any = getUser()
 
@@ -22,6 +25,8 @@ const Navbar = (): JSX.Element => {
 
   // prompt message state
   const [promptMessage, setPromptMessage] = useState<string>("")
+
+  const router = useRouter()
 
   const beforeLogin_SignUp = (): JSX.Element => {
     return (
@@ -49,7 +54,7 @@ const Navbar = (): JSX.Element => {
 
   const afterSignIN = (): JSX.Element => {
     return (
-      <div className="relative top-11 h-60 w-36">
+      <div className="relative top-14 h-60 w-36">
         <div id="user-icon">
           <button
             className="p-0 rounded-full ring-2 ring-white bg-blue-700"
@@ -68,8 +73,13 @@ const Navbar = (): JSX.Element => {
           </button>
         </div>
         <div className="hidden flex-col rounded bg-gray-200" id="options">
-          <button className="py-1.5">View Account</button>
-          <button className="py-1.5">View Blogs</button>
+          <button
+            className="py-1.5"
+            onClick={() =>{ 
+              router.push(`/user/${user.id}`)}}
+          >
+            View Account
+          </button>
           <button
             className="py-1.5"
             onClick={() => {
@@ -159,6 +169,3 @@ const Navbar = (): JSX.Element => {
 }
 
 export default Navbar
-
-
-
