@@ -6,8 +6,8 @@ import axios from "axios"
 import { Container } from "@mui/material"
 import { useRouter } from "next/navigation"
 
-import UILoading from "@components/ui/loading"
-import UIError from "@components/ui/error"
+import UILoading from "@ui/loading"
+import UIError from "@ui/error"
 
 interface IUser {
   name: string

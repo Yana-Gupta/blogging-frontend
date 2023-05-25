@@ -1,4 +1,4 @@
-import UILoading from "@components/ui/loading"
+import UILoading from "@ui/loading"
 
 const Loading = () => {
   return (

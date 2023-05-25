@@ -23,13 +23,14 @@ const Home = async (): Promise<JSX.Element> => {
       ) : (
         <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2 lg:gap-x-32">
           {blog.map((item: any, index: number) => {
-            if (index < 20) {
+            if (index > 20) {
               return (
                 <div
                   className="bg-[#EAE2D6] p-4 focus:bg-[#F8F5F2] hover:bg-[#F8F5F2]"
                   key={index}
                 >
                   <h1>{item.title}</h1>
+                  <p>{`${item.body.substr(0, 20)} ...`}</p>
                   <p>
                     Written by: <span>{item.userName}</span>
                   </p>

@@ -1,12 +1,11 @@
-import Navbar from "@/components/Navbar"
 import Footer from "@components/Footer"
 import React from "react"
+import dynamic from "next/dynamic"
 import { Inter } from "next/font/google"
+const Navbar = dynamic(() => import("@components/Navbar"), { ssr: false })
 import "@styles/globals.css"
 
-
 const inter = Inter({ subsets: ["latin"] })
-
 
 export default function RootLayout({
   children,
@@ -16,9 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-white text-neutral-900`}>
-          <Navbar />
-          {children}
-          <Footer />
+        <Navbar />
+        {children}
+        <Footer />
       </body>
     </html>
   )

@@ -13,7 +13,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 // Methods
 import { getUser } from "@helper/auth/index"
 import { deleteToken } from "@helper/auth/index"
-import { Container } from "@mui/material"
 
 const Navbar = (): JSX.Element => {
   const user: any = getUser()
@@ -24,16 +23,16 @@ const Navbar = (): JSX.Element => {
   // prompt message state
   const [promptMessage, setPromptMessage] = useState<string>("")
 
-  const signIN_UP = (): JSX.Element => {
+  const beforeLogin_SignUp = (): JSX.Element => {
     return (
-      <Container>
-        <Link href="/login" className="uppercase px-4">
+      <div>
+        <a href="/login" className="uppercase px-4">
           Login
-        </Link>
-        <Link href="/signin" className="uppercase px-4">
+        </a>
+        <a href="/signin" className="uppercase px-4">
           SignUp
-        </Link>
-      </Container>
+        </a>
+      </div>
     )
   }
 
@@ -48,9 +47,9 @@ const Navbar = (): JSX.Element => {
     )
   }
 
-  const Logout = (): JSX.Element => {
+  const afterSignIN = (): JSX.Element => {
     return (
-      <div className="h-24 w-28 pt-6">
+      <div className="relative top-11 h-60 w-36">
         <div id="user-icon">
           <button
             className="p-0 rounded-full ring-2 ring-white bg-blue-700"
@@ -58,9 +57,9 @@ const Navbar = (): JSX.Element => {
               var options = document.getElementById("options")
               if (options?.classList.contains("hidden")) {
                 options?.classList.remove("hidden")
-                options?.classList.add("block")
-              } else if (options?.classList.contains("block")) {
-                options?.classList.remove("block")
+                options?.classList.add("flex")
+              } else if (options?.classList.contains("flex")) {
+                options?.classList.remove("flex")
                 options?.classList.add("hidden")
               }
             }}
@@ -68,10 +67,11 @@ const Navbar = (): JSX.Element => {
             <AccountCircleIcon sx={{ height: "52px", width: "52px" }} />
           </button>
         </div>
-        <div className="hidden rounded bg-gray-200" id="options">
-          <button>View Account</button>
-          <button>View Blogs</button>
+        <div className="hidden flex-col rounded bg-gray-200" id="options">
+          <button className="py-1.5">View Account</button>
+          <button className="py-1.5">View Blogs</button>
           <button
+            className="py-1.5"
             onClick={() => {
               const msg = deleteToken()
               setPromptMessage(msg)
@@ -126,7 +126,7 @@ const Navbar = (): JSX.Element => {
       {/* Modal  */}
       {promptMessage && prompt(promptMessage)}
 
-      <div className="flex text-center items-center bg-indigo-900 justify-around align-center h-28">
+      <div className="flex text-center items-center bg-indigo-900 justify-around align-center h-40">
         {/* Heading  */}
         <h1 className="text-xl lg:text-3xl font-bold uppercase" id="heading">
           GoodBlogs
@@ -148,7 +148,7 @@ const Navbar = (): JSX.Element => {
         </div>
 
         {/* Login / Logout Route  */}
-        {user ? Logout() : signIN_UP()}
+        {user ? afterSignIN() : beforeLogin_SignUp()}
       </div>
 
       {/* Theme changing icon  */}
@@ -159,3 +159,6 @@ const Navbar = (): JSX.Element => {
 }
 
 export default Navbar
+
+
+

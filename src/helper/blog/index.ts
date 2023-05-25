@@ -8,7 +8,7 @@ export async function fetchBlogs(): Promise<[] | undefined> {
     }
     return undefined
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -22,6 +22,6 @@ export async function blog(id: string): Promise<[] | undefined> {
     }
     return []
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }

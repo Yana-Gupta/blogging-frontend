@@ -13,13 +13,13 @@ import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify"
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft"
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight"
 
-
 // Functions
 import { getUser } from "@helper/auth/index"
 
 // Error
 import { AuthRequiredError } from "@lib/exceptions"
 import axios from "axios"
+import dynamic from "next/dynamic"
 
 // Interface
 interface IPost {
@@ -28,12 +28,6 @@ interface IPost {
 }
 
 const create = (): JSX.Element => {
-  const user: any = getUser()
-
-  if (!user) {
-    throw new AuthRequiredError("You must be logged in to create a post.")
-  }
-
   // tools options for the text area
   const [fontSize, setFontSize] = useState<number>(16)
   const [isBold, setIsBold] = useState<boolean>(false)
@@ -74,6 +68,12 @@ const create = (): JSX.Element => {
       console.log(err)
     }
   }
+
+  // get the user
+  const user: any = getUser()
+
+  if (!user)
+    throw new AuthRequiredError("You must be logged in to create a post.")
 
   return (
     <Container sx={{ minHeight: "100vh" }}>
@@ -222,4 +222,4 @@ const create = (): JSX.Element => {
   )
 }
 
-export default create
+export default dynamic(() => Promise.resolve(create), { ssr: false })
