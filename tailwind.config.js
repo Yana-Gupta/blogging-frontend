@@ -20,6 +20,14 @@ module.exports = {
         laptop: "1024px",
         desktop: "1280px",
       },
+      width: {
+        "120": "480px",
+        "180": "720px",
+        "80": "320px",
+      },
+      height: {
+        "42": "168px",
+      }
     },
   },
   plugins: [],

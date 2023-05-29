@@ -1,138 +1,108 @@
 "use client"
 
-import React, { useState } from "react"
-import { FormControl, TextField } from "@mui/material"
 import axios from "axios"
-import { Container } from "@mui/material"
+import dynamic from "next/dynamic"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 
-import UILoading from "@ui/loading"
-import UIError from "@ui/error"
-
-interface IUser {
-  name: string
+interface LoginProps {
   email: string
   password: string
-  confirmPassword: string
 }
 
-const signin = (): JSX.Element => {
-  const [user, setUser] = useState<IUser>({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  })
+import "../../styles/form.css"
 
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string>("")
-
+const Login = () => {
   const router = useRouter()
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
+
   const handleSubmit = async (event: any): Promise<any> => {
-    console.log(event.target.name.value)
-
+    event.preventDefault()
+    setLoading(true)
     try {
-      if (user.password !== user.confirmPassword) {
-        setLoading(false)
-        setError("Password and confirm password are not the same")
-        return
-      }
-
-      const { data } = await axios.post(
-        "http://localhost:4000/api/user",
-        user,
+      const { data, status } = await axios.post(
+        "http://localhost:4000/api/login",
+        login,
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       )
-      console.log(data)
-      event.preventDefault()
+      if (status === 200) {
+        if (typeof window === undefined) return null
+        localStorage.setItem("user", JSON.stringify(data))
+        event.preventDefault()
+      }
+      setLoading(false)
       router.push("/")
-    } catch (error) {
-      console.log("error is: ", error)
-      return
+    } catch (err: any) {
+      if (err?.status === 401 || 404) {
+        console.log(err.status)
+        setError("Invalid Credentials")
+      }
+      if (err?.message === "Internal Server Error") {
+        setError("Internal Server Error")
+      }
+
+      setError("Something went wrong")
+      setLoading(false)
     }
   }
 
-  const singUpForm = (): JSX.Element => {
+  const [login, setLogin] = useState<LoginProps>({ email: "", password: "" })
+
+  const form = (): JSX.Element => {
     return (
-      <form
-        className="flex flex-col text-center items-center"
-        method="post"
-        onSubmit={(e) => handleSubmit(e)}
-      >
-        <FormControl className="my-2">
-          <TextField
-            helperText="Please enter your name"
-            label="Name"
+      <div className="form">
+        <div className="title text-center">Welcome</div>
+        <div className="subtitle text-center">Let's login to your account!</div>
+
+        <div className="input-container ic2">
+          <input
+            id="email"
             className="input"
-            name="name"
+            type="text"
+            placeholder=" "
+            onChange={(e: any) => setLogin({ ...login, email: e.target.value })}
             required
-            onChange={(e) => {
-              setUser({ ...user, name: e.target.value })
-            }}
           />
-        </FormControl>
-        <FormControl className="my-2">
-          <TextField
-            label="Email"
-            helperText="Please enter your email here"
+          <div className="cut cut-short"></div>
+          <label htmlFor="email" className="placeholder">
+            Email
+          </label>
+        </div>
+        <div className="input-container ic2">
+          <input
+            id="password"
             className="input"
-            name="email"
-            required
-            onChange={(e) => {
-              setUser({ ...user, email: e.target.value })
-            }}
-          />
-        </FormControl>
-        <FormControl className="my-2">
-          <TextField
-            label="Password"
-            helperText="Please enter your password here"
             type="password"
-            className="input"
-            name="password"
-            onChange={(e) => {
-              setUser({ ...user, password: e.target.value })
+            placeholder=" "
+            onChange={(e: any) => {
+              setLogin({ ...login, password: e.target.value })
+              console.log(login)
             }}
-          />
-        </FormControl>
-        <FormControl className="my-2">
-          <TextField
-            label="Password"
-            helperText="Confirm your password"
-            type="password"
-            id="confirm password"
-            className="input"
-            name="confirmPassword"
             required
-            onChange={(e) => {
-              setUser({ ...user, confirmPassword: e.target.value })
-            }}
           />
-        </FormControl>
-        <button type="submit" className="">
-          Submit
+          <div className="cut cut-short"></div>
+          <label htmlFor="password" className="placeholder">
+            Password
+          </label>
+        </div>
+        <button className="submit" onClick={(e: any) => handleSubmit(e)}>
+          submit
         </button>
-      </form>
+      </div>
     )
   }
 
   return (
-    <Container className="min-h-[90vh] mx-auto text-center w-full flex flex-col items-center align-center text-center">
-      <h1 className="text-center uppercase text-xl tablet:text-3xl laptop:text-5xl desktop:text-5xl">
-        Sign UP to GOOD BLogs
-      </h1>
-
-
-      {singUpForm()}
-
-
-
-    </Container>
+    <div className="flex flex-col align-center justify-center items-center">
+      {loading ? <h1>Loading...</h1> : form()}
+      {error && <h3 className="text-red-500">{error}</h3>}
+    </div>
   )
 }
 
-export default signin
+export default dynamic(() => Promise.resolve(Login), { ssr: false })

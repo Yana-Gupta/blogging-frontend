@@ -1,4 +1,4 @@
-import { getUser } from "@helper/auth/index"
+import { getUser } from "@api/auth/index"
 import axios from "axios"
 
 export const provideUserContext = async (id: string): Promise<[] | undefined> => {

@@ -2,7 +2,7 @@
 
 //css
 import { Container, FormControl, TextField } from "@mui/material"
-import { CSSProperties, ChangeEvent, FormEvent, useState } from "react"
+import { CSSProperties, ChangeEvent, useState } from "react"
 
 // Font format icons
 import FormatBoldIcon from "@mui/icons-material/FormatBold"
@@ -14,7 +14,7 @@ import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft"
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight"
 
 // Functions
-import { getUser } from "@helper/auth/index"
+import { getUser } from "@api/auth/index"
 
 // Error
 import { AuthRequiredError } from "@lib/exceptions"
@@ -36,6 +36,8 @@ const create = (): JSX.Element => {
   const [textAlignOption, settextAlignOption] =
     useState<CSSProperties["textAlign"]>("left")
 
+  
+
   // content of the post
   const [content, setContent] = useState<IPost>({
     title: "",
@@ -45,13 +47,12 @@ const create = (): JSX.Element => {
   // submit the form
   const formSubmit = async (event: any, user: any): Promise<any> => {
     event.preventDefault()
-
     try {
       const { data } = await axios.post(
         "http://localhost:4000/api/post",
         {
-          title: event.target.title.value,
-          body: event.target.body.value,
+          title: content.title,
+          body: content.body,
           userName: user.name,
         },
         {
@@ -61,7 +62,6 @@ const create = (): JSX.Element => {
           },
         }
       )
-
       console.log(data)
       console.log("Post created successfully")
     } catch (err) {
@@ -80,10 +80,7 @@ const create = (): JSX.Element => {
       <h1 className="font-medium text-2xl text-center mt-4">
         CREATE BLOG POST
       </h1>
-      <form
-        className="flex flex-col justify-center py-12 grid grid-cols-1 gap-4"
-        onSubmit={(event: any) => formSubmit(event, user)}
-      >
+      <div className="flex flex-col justify-center py-12 grid grid-cols-1 gap-4">
         {/* Title of the post  */}
 
         <FormControl>
@@ -213,11 +210,11 @@ const create = (): JSX.Element => {
         </Container>
 
         <div>
-          <button type="submit" className="py-2 px-4">
+          <button className="py-2 px-4" onClick={(e) => formSubmit(e, user)}>
             Post Blog
           </button>
         </div>
-      </form>
+      </div>
     </Container>
   )
 }

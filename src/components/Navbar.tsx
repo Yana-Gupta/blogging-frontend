@@ -11,8 +11,8 @@ import DarkModeIcon from "@mui/icons-material/DarkMode"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 
 // Methods
-import { getUser } from "@helper/auth/index"
-import { deleteToken } from "@helper/auth/index"
+import { getUser } from "@api/auth/index"
+import { deleteToken } from "@api/auth/index"
 
 // next router
 import { useRouter } from "next/navigation"
@@ -31,11 +31,11 @@ const Navbar = (): JSX.Element => {
   const beforeLogin_SignUp = (): JSX.Element => {
     return (
       <div>
-        <a href="/login" className="uppercase px-4">
-          Login
-        </a>
         <a href="/signin" className="uppercase px-4">
-          SignUp
+          Sign In
+        </a>
+        <a href="/signup" className="uppercase px-4">
+          Sigin Up
         </a>
       </div>
     )
@@ -44,7 +44,7 @@ const Navbar = (): JSX.Element => {
   const prompt = (message: string): JSX.Element => {
     return (
       <div className="bg-orange-900 h-12 w-full flex align-center items-center justify-center my-auto">
-        <h1>{message}</h1>
+        <h3>{message}</h3>
         <button onClick={() => setPromptMessage("")}>
           <CloseIcon />
         </button>
@@ -75,8 +75,9 @@ const Navbar = (): JSX.Element => {
         <div className="hidden flex-col rounded bg-gray-200" id="options">
           <button
             className="py-1.5"
-            onClick={() =>{ 
-              router.push(`/user/${user.id}`)}}
+            onClick={() => {
+              router.push(`/user/${user.id}`)
+            }}
           >
             View Account
           </button>
@@ -85,6 +86,7 @@ const Navbar = (): JSX.Element => {
             onClick={() => {
               const msg = deleteToken()
               setPromptMessage(msg)
+              window.location.reload()
             }}
           >
             Logout
@@ -97,34 +99,13 @@ const Navbar = (): JSX.Element => {
   const ThemeChangeIcon = (): JSX.Element => {
     return (
       <button
-        onClick={() => {
-          var body = document.querySelector("body")
-          if (
-            body?.classList.contains("bg-white") &&
-            body?.classList.contains("text-neutral-900")
-          ) {
-            body?.classList.remove("bg-white")
-            body?.classList.remove("text-neutral-900")
-            body?.classList.add("bg-neutral-800")
-            body?.classList.add("text-slate-50")
-            setDark(true)
-          } else if (
-            body?.classList.contains("bg-neutral-800") &&
-            body?.classList.contains("text-slate-50")
-          ) {
-            body?.classList.remove("bg-neutral-800")
-            body?.classList.remove("text-slate-50")
-            body?.classList.add("bg-white")
-            body?.classList.add("text-neutral-900")
-            setDark(false)
-          }
-        }}
         className={`h-10 w-10 ${
           dark ? "bg-black" : "bg-white"
         } rounded-full absolute top-8 right-8`}
         id="theme-change-btn"
+        onClick={() => setDark(!dark)}
       >
-        {dark && <LightModeIcon />}
+        {dark && <LightModeIcon sx={{ color: "#ffffff" }} />}
 
         {!dark && <DarkModeIcon sx={{ color: "#000000" }} />}
       </button>
@@ -132,11 +113,15 @@ const Navbar = (): JSX.Element => {
   }
 
   return (
-    <nav className=" mx-auto w-full text-center text-slate-100 z-[100]">
+    <nav className={""} id="nav">
       {/* Modal  */}
       {promptMessage && prompt(promptMessage)}
 
-      <div className="flex text-center items-center bg-indigo-900 justify-around align-center h-40">
+      <div
+        style={{ height: "160px" }}
+        className="flex text-center items-center justify-around align-center h-full"
+        id="nav-tools"
+      >
         {/* Heading  */}
         <h1 className="text-xl lg:text-3xl font-bold uppercase" id="heading">
           GoodBlogs
@@ -145,6 +130,9 @@ const Navbar = (): JSX.Element => {
         {/* Routes  */}
         <div className="font-semibold uppercase">
           <Link href="/" className="px-8">
+            Home
+          </Link>
+          <Link href="/#read-blogs" className="px-8">
             Read Blogs
           </Link>
           <Link href="create" className="px-8">
@@ -152,8 +140,7 @@ const Navbar = (): JSX.Element => {
           </Link>
 
           <Link href="/about" className="px-8">
-            {" "}
-            About{" "}
+            About
           </Link>
         </div>
 

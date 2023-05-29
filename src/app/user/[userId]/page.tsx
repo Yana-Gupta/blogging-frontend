@@ -1,9 +1,9 @@
 "use client"
 
-import { provideUserContext } from "@helper/user/index"
+import { provideUserContext } from "@api/user/index"
 import { FormControl, FormControlLabel, TextField } from "@mui/material"
 import { notFound } from "next/navigation"
-import { fetchBlogsForUser } from "@helper/blog/index"
+import { fetchBlogsForUser } from "@api/blog/index"
 import { useRouter } from "next/navigation"
 
 const user = async (props: any): Promise<JSX.Element> => {

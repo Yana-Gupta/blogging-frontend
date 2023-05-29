@@ -23,9 +23,11 @@
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
       "@styles/*": ["./src/styles/*"],
-      "@helper/*": ["./src/helper/*"],
+      "@api/*": ["./src/api/*"],
       "@ui/*": ["./src/ui/*"],
       "@lib/*": ["./src/app/lib/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@helper/*": ["./src/helper/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
