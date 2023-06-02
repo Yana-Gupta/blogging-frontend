@@ -1,9 +1,12 @@
 "use client"
 
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import UILoading from "@ui/loading"
+
+// user
+import { getUser } from "@/api/auth"
 
 interface SignUpProps {
   name: String
@@ -14,6 +17,15 @@ interface SignUpProps {
 
 const SignUp = (): JSX.Element => {
   const router = useRouter()
+
+  var user: any = null
+
+  useEffect(() => {
+    user = getUser()
+    if ( user ) {
+      router.push("/")
+    }
+  })
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -22,6 +34,13 @@ const SignUp = (): JSX.Element => {
     setLoading(true)
 
     try {
+      if (
+        !(props.email && props.name && props.password && props.confirmPassword)
+      ) {
+        setError("Please fill all the fields!")
+        setLoading(false)
+        return
+      }
       if (props.password !== props.confirmPassword) {
         setError("Passwords do not match")
         setLoading(false)
@@ -68,8 +87,11 @@ const SignUp = (): JSX.Element => {
 
   const formElement = (): JSX.Element => {
     return (
-      <div className="px-10 py-10 flex flex-col w-full items-center flex flex-col border border-red-100 rounded-md">
-        <h1 className="text-2xl ablet:text-4xl laptop:text-6xl font-bold my-8">
+      <div
+        className={`px-8 py-10 w-full items-center flex flex-col rounded-lg drop-shadow-2xl focus:drop-shadow-3xl hover:drop-shadow-3xl `}
+        id="signup-card"
+      >
+        <h1 className="text-2xl ablet:text-4xl laptop:text-5xl font-bold my-8 text-center">
           Create a new account
         </h1>
 
@@ -81,6 +103,8 @@ const SignUp = (): JSX.Element => {
               name="name"
               id="name"
               onChange={(e) => setProps({ ...props, name: e.target.value })}
+              className="rounded-md px-2 py-2 w-full bg-slate-400/50"
+              required
             />
           </div>
           <div className="flex flex-col py-2">
@@ -90,6 +114,8 @@ const SignUp = (): JSX.Element => {
               name="email"
               id="email"
               onChange={(e) => setProps({ ...props, email: e.target.value })}
+              className="rounded-md px-2 py-2 w-full bg-slate-400/50"
+              required
             />
           </div>
           <div className="flex flex-col py-2">
@@ -99,6 +125,8 @@ const SignUp = (): JSX.Element => {
               name="password"
               id="email"
               onChange={(e) => setProps({ ...props, password: e.target.value })}
+              className="rounded-md px-2 py-2 w-full bg-slate-400/50"
+              required
             />
           </div>
           <div className="flex flex-col py-2">
@@ -110,9 +138,16 @@ const SignUp = (): JSX.Element => {
               onChange={(e) =>
                 setProps({ ...props, confirmPassword: e.target.value })
               }
+              className="rounded-md px-2 py-2 w-full bg-slate-400/50"
+              required
             />
           </div>
-          <button onClick={(e) => handleSignUp(e)}>Submit</button>
+          <button
+            onClick={(e) => handleSignUp(e)}
+            className="rounded-md my-6 px-2 py-2 w-full bg-white text-black font-bold hover:bg-slate-200"
+          >
+            Submit
+          </button>
           {error && <div className="text-red-500 text-center">{error}</div>}
         </div>
       </div>
@@ -120,7 +155,7 @@ const SignUp = (): JSX.Element => {
   }
 
   return (
-    <div className="items-center xl:mx-[400px] lg:mx-80 md:mx-40 sm:mx-20 mx-8">
+    <div className="items-center xl:mx-[400px] lg:mx-80 md:mx-40 sm:mx-20 mx-7 flex flex-row ">
       {loading ? <UILoading /> : formElement()}
     </div>
   )

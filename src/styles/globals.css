@@ -103,3 +103,24 @@ h1 {
     transform: rotate(360deg);
   }
 }
+
+#signup-card {
+  background: url("../assets/images/SignUpGraphic.jpg") no-repeat 45% 10%;
+  background-origin: content-box;
+  background-size: cover;
+  overflow: hidden;
+  opacity: .5;
+}
+
+
+@media (min-width: 1200px) {
+
+  #signup-card {
+    background: url("../assets/images/SignUpGraphic.jpg") no-repeat 45% 45%;
+    background-origin: content-box;
+    background-size: cover;
+    overflow: hidden;
+    opacity: .5;
+  }
+
+}

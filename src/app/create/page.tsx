@@ -2,7 +2,8 @@
 
 //css
 import { Container, FormControl, TextField } from "@mui/material"
-import { CSSProperties, ChangeEvent, useState } from "react"
+import { CSSProperties, ChangeEvent, useState, useEffect } from "react"
+
 
 // Font format icons
 import FormatBoldIcon from "@mui/icons-material/FormatBold"
@@ -13,13 +14,16 @@ import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify"
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft"
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight"
 
+
+
 // Functions
 import { getUser } from "@api/auth/index"
 
+
 // Error
-import { AuthRequiredError } from "@lib/exceptions"
 import axios from "axios"
 import dynamic from "next/dynamic"
+
 
 // Interface
 interface IPost {
@@ -27,6 +31,7 @@ interface IPost {
   body: string
 }
 
+// Create a post
 const create = (): JSX.Element => {
   // tools options for the text area
   const [fontSize, setFontSize] = useState<number>(16)
@@ -35,8 +40,6 @@ const create = (): JSX.Element => {
   const [underlined, setIsunderlined] = useState<boolean>(false)
   const [textAlignOption, settextAlignOption] =
     useState<CSSProperties["textAlign"]>("left")
-
-  
 
   // content of the post
   const [content, setContent] = useState<IPost>({
@@ -70,10 +73,14 @@ const create = (): JSX.Element => {
   }
 
   // get the user
-  const user: any = getUser()
+  var user: any = null
+  useEffect(() => {
+    user = getUser()
+  })
 
-  if (!user)
-    throw new AuthRequiredError("You must be logged in to create a post.")
+  if (!user) {
+
+  }
 
   return (
     <Container sx={{ minHeight: "100vh" }}>
