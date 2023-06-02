@@ -31,12 +31,12 @@ const Navbar = (): JSX.Element => {
   const beforeLogin_SignUp = (): JSX.Element => {
     return (
       <div>
-        <a href="/signin" className="uppercase px-4">
+        <Link href="/signin" className="uppercase mx-6 hover:font-bold">
           Sign In
-        </a>
-        <a href="/signup" className="uppercase px-4">
+        </Link>
+        <Link href="/signup" className="uppercase mx-6 hover:font-bold">
           Sigin Up
-        </a>
+        </Link>
       </div>
     )
   }
@@ -54,10 +54,10 @@ const Navbar = (): JSX.Element => {
 
   const afterSignIN = (): JSX.Element => {
     return (
-      <div className="relative top-14 h-60 w-36">
+      <div className="relative top-20 h-60 w-36">
         <div id="user-icon">
           <button
-            className="p-0 rounded-full ring-2 ring-white bg-blue-700"
+            className="p-0 rounded-full ring-white"
             onClick={() => {
               var options = document.getElementById("options")
               if (options?.classList.contains("hidden")) {
@@ -69,7 +69,7 @@ const Navbar = (): JSX.Element => {
               }
             }}
           >
-            <AccountCircleIcon sx={{ height: "52px", width: "52px" }} />
+            <AccountCircleIcon color="primary" sx={{ height: "52px", width: "52px" }} />
           </button>
         </div>
         <div className="hidden flex-col rounded bg-gray-200" id="options">
@@ -128,18 +128,30 @@ const Navbar = (): JSX.Element => {
         </h1>
 
         {/* Routes  */}
-        <div className="font-semibold uppercase">
-          <Link href="/" className="px-8">
+        <div className="uppercase grid grid-cols-4 gap-x-16">
+          <Link
+            href="/"
+            className="font-normal hover:underline underline-offset-4 focus:underline"
+          >
             Home
           </Link>
-          <Link href="/#read-blogs" className="px-8">
+          <Link
+            href="/#read-blogs"
+            className="font-normal hover:underline underline-offset-4 focus:underline"
+          >
             Read Blogs
           </Link>
-          <Link href="create" className="px-8">
+          <Link
+            href="create"
+            className="font-normal hover:underline underline-offset-4 focus:underline"
+          >
             Create Blog
           </Link>
 
-          <Link href="/about" className="px-8">
+          <Link
+            href="/about"
+            className="font-normal hover:underline underline-offset-4 focus:underline"
+          >
             About
           </Link>
         </div>

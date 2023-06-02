@@ -21,13 +21,17 @@ module.exports = {
         desktop: "1280px",
       },
       width: {
-        "120": "480px",
-        "180": "720px",
-        "80": "320px",
+        120: "480px",
+        180: "720px",
+        80: "320px",
       },
       height: {
-        "42": "168px",
-      }
+        42: "168px",
+      },
+      dropShadow: {
+        "3xl": "0 35px 35px rgba(0, 0, 0, 0.25)",
+        "4xl": "0 35px 35px rgba(0, 0, 0, 0.25)",
+      },
     },
   },
   plugins: [],
