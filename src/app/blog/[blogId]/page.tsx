@@ -1,6 +1,8 @@
 import { blog } from "@api/blog/index"
 import { notFound } from "next/navigation"
 
+import "@styles/blog.css"
+
 const Blog = async (props: any): Promise<JSX.Element> => {
   var reqBlog: object | any = {}
   await blog(props.params.blogId).then((res) => (reqBlog = res))

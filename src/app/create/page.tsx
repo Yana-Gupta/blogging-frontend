@@ -2,8 +2,8 @@
 
 //css
 import { Container, FormControl, TextField } from "@mui/material"
-import { CSSProperties, ChangeEvent, useState, useEffect } from "react"
 
+import { CSSProperties, ChangeEvent, useState, useEffect } from "react"
 
 // Font format icons
 import FormatBoldIcon from "@mui/icons-material/FormatBold"
@@ -14,16 +14,12 @@ import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify"
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft"
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight"
 
-
-
 // Functions
 import { getUser } from "@api/auth/index"
-
 
 // Error
 import axios from "axios"
 import dynamic from "next/dynamic"
-
 
 // Interface
 interface IPost {
@@ -31,7 +27,6 @@ interface IPost {
   body: string
 }
 
-// Create a post
 const create = (): JSX.Element => {
   // tools options for the text area
   const [fontSize, setFontSize] = useState<number>(16)
@@ -79,7 +74,18 @@ const create = (): JSX.Element => {
   })
 
   if (!user) {
-
+    return (
+      <div className="min-h-[90vh] w-full mx-auto flex flex-col align-center pt-20">
+        <h1 className="text-xl sm:text-3xl lg:text-4xl text-center">
+          You need to login first to read create a blog
+        </h1>
+        <div className="w-full flex flex-row items-center w-full justify-center pt-10">
+          <button className="px-4 py-2 bg-cyan-100 text-neutral-600 rounded-md">
+            <a href="/signin">Login</a>
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (

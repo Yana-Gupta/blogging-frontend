@@ -28,6 +28,21 @@ const Navbar = (): JSX.Element => {
 
   const router = useRouter()
 
+  // for changing theme
+
+  const changeTheme = (): void => {
+    setDark(!dark)
+    document.body.classList.toggle("dark")
+    document.body.classList.toggle("light")
+    var blogCard = document.getElementsByClassName("blog-card")
+    for (let i = 0; i < blogCard.length; i++) {
+      blogCard[i].classList.toggle("dark-card")
+      blogCard[i].classList.toggle("light-card")
+    }
+
+    var loginPage = document.getElementById("login")
+  }
+
   const beforeLogin_SignUp = (): JSX.Element => {
     return (
       <div>
@@ -41,6 +56,7 @@ const Navbar = (): JSX.Element => {
     )
   }
 
+  // For logout promt message
   const prompt = (message: string): JSX.Element => {
     return (
       <div className="bg-orange-900 h-12 w-full flex align-center items-center justify-center my-auto">
@@ -69,7 +85,10 @@ const Navbar = (): JSX.Element => {
               }
             }}
           >
-            <AccountCircleIcon color="primary" sx={{ height: "52px", width: "52px" }} />
+            <AccountCircleIcon
+              color="primary"
+              sx={{ height: "52px", width: "52px" }}
+            />
           </button>
         </div>
         <div className="hidden flex-col rounded bg-gray-200" id="options">
@@ -103,7 +122,7 @@ const Navbar = (): JSX.Element => {
           dark ? "bg-black" : "bg-white"
         } rounded-full absolute top-8 right-8`}
         id="theme-change-btn"
-        onClick={() => setDark(!dark)}
+        onClick={changeTheme}
       >
         {dark && <LightModeIcon sx={{ color: "#ffffff" }} />}
 
@@ -161,7 +180,6 @@ const Navbar = (): JSX.Element => {
       </div>
 
       {/* Theme changing icon  */}
-
       {ThemeChangeIcon()}
     </nav>
   )

@@ -22,7 +22,7 @@ const SignUp = (): JSX.Element => {
 
   useEffect(() => {
     user = getUser()
-    if ( user ) {
+    if (user) {
       router.push("/")
     }
   })
@@ -44,7 +44,7 @@ const SignUp = (): JSX.Element => {
       if (props.password !== props.confirmPassword) {
         setError("Passwords do not match")
         setLoading(false)
-        console.log(error)
+        console.error(error)
         return
       }
 
@@ -57,7 +57,6 @@ const SignUp = (): JSX.Element => {
           },
         }
       )
-      console.log(data, status)
 
       if (status === 201) {
         if (typeof window === undefined) return null
@@ -73,7 +72,7 @@ const SignUp = (): JSX.Element => {
         setError("Internal Server Error")
       }
       setLoading(false)
-      console.log("Error while creating account", err)
+      console.error("Error while creating account", err)
     }
 
     e.preventDefault()
@@ -88,7 +87,7 @@ const SignUp = (): JSX.Element => {
   const formElement = (): JSX.Element => {
     return (
       <div
-        className={`px-8 py-10 w-full items-center flex flex-col rounded-lg drop-shadow-2xl focus:drop-shadow-3xl hover:drop-shadow-3xl `}
+        className={`px-8 py-10 w-full items-center flex flex-col rounded-lg drop-shadow-2xl focus:drop-shadow-3xl text-black hover:drop-shadow-3xl dark-signup`}
         id="signup-card"
       >
         <h1 className="text-2xl ablet:text-4xl laptop:text-5xl font-bold my-8 text-center">
