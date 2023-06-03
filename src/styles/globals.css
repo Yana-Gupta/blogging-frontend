@@ -109,18 +109,41 @@ h1 {
   background-origin: content-box;
   background-size: cover;
   overflow: hidden;
-  opacity: .5;
 }
 
+.dark-signup{
+  background-color: #292929;
+}
 
 @media (min-width: 1200px) {
-
   #signup-card {
     background: url("../assets/images/SignUpGraphic.jpg") no-repeat 45% 45%;
     background-origin: content-box;
     background-size: cover;
     overflow: hidden;
-    opacity: .5;
   }
+}
 
+.light {
+  background-color: rgb(241 245 249);
+  color: rgb(31 41 55);
+}
+
+.dark {
+  background-color: rgb(39 39 42);
+  color: rgb(245 245 245);
+  opacity: .9;
+}
+
+.light-card {
+  background-color: rgb(226 232 240);
+  color: rgb(31 41 55);
+  opacity: .75;
+
+}
+
+.dark-card {
+  background-color: rgb(75 85 99);
+  color: rgb(245 245 245);
+  opacity: .9;
 }

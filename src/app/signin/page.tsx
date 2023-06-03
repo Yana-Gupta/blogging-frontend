@@ -2,9 +2,9 @@
 
 import axios from "axios"
 import dynamic from "next/dynamic"
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import Graphic from "@assets/images/LoginGraphic.jpg"
+import Graphic from "@assets/images/LoginGraphic.png"
 
 import UILoading from "@ui/loading"
 
@@ -37,6 +37,12 @@ const Login = () => {
   const handleSubmit = async (event: any): Promise<any> => {
     event.preventDefault()
     setLoading(true)
+
+    if (props.email === "" || props.password === "") {
+      setError("Please fill all the fields!")
+      setLoading(false)
+      return
+    }
     try {
       const { data, status } = await axios.post(
         "http://localhost:4000/api/login",
@@ -72,16 +78,16 @@ const Login = () => {
 
   const form = (): JSX.Element => {
     return (
-      <div className="flex flex-col px-10 py-8 my-3 bg-white rounded-lg shadow-md hover:shadow-xl ">
+      <div
+        className="flex flex-col px-10 py-8 my-3 rounded-lg shadow-md hover:shadow-xl light"
+        id="login"
+      >
         <h2 className="text-center mb-10 font-mono uppercase text-5xl">
           Login
         </h2>
         <div className="flex flex-row py-0 ">
-          <div className="px-10 flex flex-col items-center bg-blue-100 py-16 rounded-lg shadow-xl hover:shadow-2xl">
-            <h1 className="text-3xl font-bold uppercase text-center py-2">
-              Welcome!
-            </h1>
-            <h2 className="text-xl py-4">Let's login in to your account!</h2>
+          <div className="px-10 flex flex-col items-center justify-center bg-blue-100 py-16 rounded-lg shadow-xl hover:shadow-2xl">
+            <h1 className="text-3xl font-bold py-4">Welcome back</h1>
             <div className="flex flex-col my-2">
               <label htmlFor="email">Email</label>
               <input
@@ -104,10 +110,14 @@ const Login = () => {
               />
             </div>
             <button onClick={(e) => handleSubmit(e)}>Submit</button>
-            {error && <p>{error}</p>}
+            {error && <p className="text-rose-700">{error}</p>}
           </div>
           <div className="hidden md:flex px-4 py-8 text-center flex-col items-center justify-between">
-            <Image src={Graphic} alt="" className="lg:h-60 lg:w-60 md:h-72 md:w-52 xl:h-96 xl:w-96 " />
+            <Image
+              src={Graphic}
+              alt=""
+              className="lg:h-60 lg:w-60 md:h-72 md:w-52 xl:h-96 xl:w-96"
+            />
             <Link
               href="/signup"
               className="text-blue-800 hover:underline focus:underline"
