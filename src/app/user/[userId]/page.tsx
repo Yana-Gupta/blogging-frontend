@@ -24,7 +24,9 @@ const user = async (props: any): Promise<JSX.Element> => {
   return (
     <div className="my-2 flex flex-col justify-center items-center ">
       <div>
-        <h1 className="text-4xl font-semibold py-4">Welcome Back {user?.name} !</h1>
+        <h1 className="text-4xl font-semibold py-4">
+          Welcome Back {user?.name} !
+        </h1>
       </div>
       {/* <div className="text-center">
         <FormControl>

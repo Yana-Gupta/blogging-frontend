@@ -17,14 +17,14 @@ const Error = ({
         There was a problem
       </p>
       <h1 className="my-3 text-7xl font-bold p-7 text-cyan-200">
-        {error.message ? error.message : "Something went wrong"}
+        {"Something went wrong"}
       </h1>
       <div className="flex items-center">
         <button
-          onClick={() => router.push("/signin")}
+          onClick={() => window.location.reload()}
           className="m-8 py-2 text-xl px-4 bg-cyan-100 text-cyan-700 font-semibold border-1 border-cyan-300 rounded-md shadow-md hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-opacity-75"
         >
-          Login
+          Try Again
         </button>
         <Link
           href="/"

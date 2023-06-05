@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import React, { use, useEffect } from "react"
+import React from "react"
 import { useState } from "react"
 
 // Icons
@@ -9,6 +9,8 @@ import CloseIcon from "@mui/icons-material/Close"
 import LightModeIcon from "@mui/icons-material/LightMode"
 import DarkModeIcon from "@mui/icons-material/DarkMode"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded"
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 
 // Methods
 import { getUser } from "@api/auth/index"
@@ -17,6 +19,7 @@ import { deleteToken } from "@api/auth/index"
 // next router
 import { useRouter } from "next/navigation"
 
+// Navbar component
 const Navbar = (): JSX.Element => {
   const user: any = getUser()
 
@@ -39,19 +42,54 @@ const Navbar = (): JSX.Element => {
       blogCard[i].classList.toggle("dark-card")
       blogCard[i].classList.toggle("light-card")
     }
-
-    var loginPage = document.getElementById("login")
   }
 
   const beforeLogin_SignUp = (): JSX.Element => {
     return (
-      <div>
-        <Link href="/signin" className="uppercase mx-6 hover:font-bold">
-          Sign In
-        </Link>
-        <Link href="/signup" className="uppercase mx-6 hover:font-bold">
-          Sigin Up
-        </Link>
+      <div className="justify-self-end">
+        <div className="relative inline-block mr-16 xl:hidden">
+          <div className="bg-slate-700 focus:bg-slate-800 text-white rounded-full flex flex-row items-center justify-center rounded-full border">
+            <button className="px-4 py-2">
+              <Link href="/signin">Create Account</Link>
+            </button>
+
+            <button
+              className="items-center p-1 h-full bg-violet-600 rounded-full"
+              id="auth-dropdown"
+              onClick={() => {
+                document
+                  ?.getElementById("dropdown-menu")
+                  ?.classList.toggle("hidden")
+                document
+                  ?.getElementById("dropdown-menu")
+                  ?.classList.toggle("flex")
+              }}
+            >
+              <ArrowDropDownIcon fontSize="large" />
+            </button>
+          </div>
+
+          <div
+            id="dropdown-menu"
+            className="hidden flex-col absolute min-w-[160px] rounded-xl shadow-lg top-14 z-10 text-slate-800"
+          >
+            <button className="fadeIn text-md rounded-t-md py-2 uppercase">
+              <Link href="/signin">Sign In</Link>
+            </button>
+            <button className="fadeIn text-md rounded-b-md py-2 uppercase">
+              <Link href="/signup">Sign Up</Link>
+            </button>
+          </div>
+        </div>
+
+        <div className="hidden xl:block" id="auth-option">
+          <Link href="/signin" className="uppercase mx-6 hover:font-bold">
+            Sign In
+          </Link>
+          <Link href="/signup" className="uppercase mx-6 hover:font-bold">
+            Sigin Up
+          </Link>
+        </div>
       </div>
     )
   }
@@ -91,7 +129,10 @@ const Navbar = (): JSX.Element => {
             />
           </button>
         </div>
-        <div className="hidden flex-col rounded bg-gray-200" id="options">
+        <div
+          className="hidden flex-col rounded bg-gray-200 text-neutral-800 py-2"
+          id="options"
+        >
           <button
             className="py-1.5"
             onClick={() => {
@@ -119,8 +160,8 @@ const Navbar = (): JSX.Element => {
     return (
       <button
         className={`h-10 w-10 ${
-          dark ? "bg-black" : "bg-white"
-        } rounded-full absolute top-8 right-8`}
+          dark ? "bg-neutral-600" : "bg-white"
+        } rounded-full absolute top-14 right-8`}
         id="theme-change-btn"
         onClick={changeTheme}
       >
@@ -132,22 +173,64 @@ const Navbar = (): JSX.Element => {
   }
 
   return (
-    <nav className={""} id="nav">
+    <nav id="nav" className="md:pl-10 lg:pl-12">
       {/* Modal  */}
       {promptMessage && prompt(promptMessage)}
 
       <div
         style={{ height: "160px" }}
-        className="flex text-center items-center justify-around align-center h-full"
+        className="flex text-center items-center justify-between align-center h-full px-4"
         id="nav-tools"
       >
         {/* Heading  */}
-        <h1 className="text-xl lg:text-3xl font-bold uppercase" id="heading">
+        <h1
+          className="hidden xl:block lg:text-3xl font-bold uppercase"
+          id="heading"
+        >
           GoodBlogs
         </h1>
 
+        <button
+          className="block xl:hidden"
+          onClick={() => {
+            document.getElementById("sidenav")?.classList.toggle("w-0")
+            document.getElementById("sidenav")?.classList.toggle("w-60")
+          }}
+        >
+          <MenuRoundedIcon fontSize="large" />
+        </button>
+
+        <div
+          id="sidenav"
+          className="fixed w-0 overflow-x-hidden transition-all duration-1000 left-0 top-0 pt-20 h-full bg-sky-200 z-[100] text-neutral-800 flex flex-col items-center"
+        >
+          <button
+            className="absolute top-10 right-10"
+            onClick={() => {
+              document.getElementById("sidenav")?.classList.toggle("w-0")
+              document.getElementById("sidenav")?.classList.toggle("w-60")
+            }}
+          >
+            <CloseIcon fontSize="large" />
+          </button>
+          <div className="mt-24 lg:mt-40 grid grid-cols-1 gap-y-10 text-xl text-center">
+            <Link className="hover:font-semibold" href="/">
+              Home
+            </Link>
+            <Link className="hover:font-semibold" href="/#read-blogs">
+              Read Blogs
+            </Link>
+            <Link className="hover:font-semibold" href="/create">
+              Create Blog
+            </Link>
+            <Link className="hover:font-semibold" href="/about">
+              About
+            </Link>
+          </div>
+        </div>
+
         {/* Routes  */}
-        <div className="uppercase grid grid-cols-4 gap-x-16">
+        <div className="hidden xl:grid uppercase grid-cols-4 gap-x-16">
           <Link
             href="/"
             className="font-normal hover:underline underline-offset-4 focus:underline"

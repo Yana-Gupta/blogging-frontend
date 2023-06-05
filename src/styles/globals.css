@@ -47,8 +47,6 @@ h1 {
 }
 
 .fadeIn {
-  padding: 20px 40px;
-  font-size: 32px;
   font-family: Arial, sans-serif;
   background: #F00;
   display: inline-block;
