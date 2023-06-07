@@ -42,6 +42,14 @@ const Navbar = (): JSX.Element => {
       blogCard[i].classList.toggle("dark-card")
       blogCard[i].classList.toggle("light-card")
     }
+
+    var footer = document.getElementById("footer")
+    footer?.classList.toggle("dark-footer")
+    footer?.classList.toggle("light-footer")
+
+    var coryright = document.getElementById("copyright")
+    coryright?.classList.toggle("dark-copyright")
+    coryright?.classList.toggle("light-copyright")
   }
 
   const beforeLogin_SignUp = (): JSX.Element => {
@@ -82,12 +90,18 @@ const Navbar = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="hidden xl:block" id="auth-option">
-          <Link href="/signin" className="uppercase mx-6 hover:font-bold">
+        <div className="hidden xl:block mr-20" id="auth-option">
+          <Link
+            href="/signin"
+            className="uppercase px-5 py-5 bg-gray-300 hover:bg-gray-400 text-black hover:font-medium"
+          >
             Sign In
           </Link>
-          <Link href="/signup" className="uppercase mx-6 hover:font-bold">
-            Sigin Up
+          <Link
+            href="/signup"
+            className="uppercase px-5 py-5 bg-[#093411] hover:bg-[#090B0B] text-white hover:font-medium"
+          >
+            Sign Up
           </Link>
         </div>
       </div>
@@ -108,7 +122,7 @@ const Navbar = (): JSX.Element => {
 
   const afterSignIN = (): JSX.Element => {
     return (
-      <div className="relative top-20 h-60 w-36">
+      <div className="relative top-20 mr-20 h-60 w-36">
         <div id="user-icon">
           <button
             className="p-0 rounded-full ring-white"
@@ -161,7 +175,7 @@ const Navbar = (): JSX.Element => {
       <button
         className={`h-10 w-10 ${
           dark ? "bg-neutral-600" : "bg-white"
-        } rounded-full absolute top-14 right-8`}
+        } rounded-full absolute top-12 right-8`}
         id="theme-change-btn"
         onClick={changeTheme}
       >
@@ -178,7 +192,7 @@ const Navbar = (): JSX.Element => {
       {promptMessage && prompt(promptMessage)}
 
       <div
-        style={{ height: "160px" }}
+        style={{ height: "140px" }}
         className="flex text-center items-center justify-between align-center h-full px-4"
         id="nav-tools"
       >

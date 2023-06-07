@@ -79,14 +79,14 @@ const Login = () => {
   const form = (): JSX.Element => {
     return (
       <div
-        className="flex flex-col px-10 py-8 my-3 rounded-lg shadow-md hover:shadow-xl light"
+        className="flex flex-col px-10 py-8 my-3 rounded-lg shadow-md hover:shadow-2xl light"
         id="login"
       >
-        <h2 className="text-center mb-10 font-mono uppercase text-5xl">
+        <h2 className="text-center mb-6 lg:mb-8 xl:mb-10 font-mono uppercase text-5xl">
           Login
         </h2>
         <div className="flex flex-row py-0 ">
-          <div className="px-10 flex flex-col items-center justify-center bg-blue-100 py-16 rounded-lg shadow-xl hover:shadow-2xl">
+          <div className="px-10 flex flex-col items-center justify-center bg-blue-100 py-8 lg:py-12 xl:py-16 rounded-lg shadow-xl hover:shadow-2xl">
             <h1 className="text-3xl font-bold py-4">Welcome back</h1>
             <div className="flex flex-col my-2">
               <label htmlFor="email">Email</label>
@@ -131,9 +131,9 @@ const Login = () => {
   }
 
   return (
-    <div className="flex flex-col align-center items-center min-h-full">
+    <div className="flex flex-col align-center items-center min-h-[90vh]">
       {loading ? (
-        <div className="min-h-[90vh] items-center flex-row align-center justify-center w-full">
+        <div className="items-center flex-row items-center justify-center w-full">
           <UILoading />
         </div>
       ) : (

@@ -1,5 +1,4 @@
 import axios from "axios"
-import { getUser } from "@helper/auth/index"
 
 export async function fetchBlogs(): Promise<[] | undefined> {
   try {

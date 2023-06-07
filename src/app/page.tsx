@@ -21,7 +21,10 @@ const Home = async (): Promise<JSX.Element> => {
     <main className="flex min-h-screen flex-col items-center justify-between ">
       <div className="h-[80vh] w-full" id="header">
         <div className="h-5/6 flex flex-col justify-center px-12 md:px-16 lg:px-18 xl:px-32 items-start">
-          <h2 className="text-4xl sm:text-5xl lg:text-5xl xl:text-7xl font-sams " style={{ lineHeight: "1.22" }}>
+          <h2
+            className="text-4xl sm:text-5xl lg:text-5xl xl:text-7xl font-sams "
+            style={{ lineHeight: "1.22" }}
+          >
             Read 1000+ blogs on various topics from our community 🌐
           </h2>
           <button className="text-3xl px-7 py-3 bg-emerald-500 font-semibold text-white my-8 rounded-full hover:bg-emerald-600">
@@ -30,7 +33,7 @@ const Home = async (): Promise<JSX.Element> => {
         </div>
       </div>
 
-      <div className="p-20" id="read-blogs">
+      <div className="pb-8 px-8 tablet:pb-10 tablet:px-10 laptop:pb-20 laptop:px-14" id="read-blogs">
         <h1 className="text-center p-6"> Read Blogs </h1>
         {!blog ? (
           <UILoading />
@@ -39,7 +42,7 @@ const Home = async (): Promise<JSX.Element> => {
             {blog.map((item: any, index: number) => {
               return (
                 <div
-                  className="card w-full h-60 tablet:w-76 laptop:w-100 blog-card light-card hover:shadow-lg"
+                  className="card h-60 tablet:w-76 laptop:w-100 blog-card light-card hover:shadow-lg"
                   key={index}
                 >
                   <div className="h-42">
