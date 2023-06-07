@@ -109,7 +109,7 @@ h1 {
   overflow: hidden;
 }
 
-.dark-signup{
+.dark-signup {
   background-color: #292929;
 }
 
@@ -128,7 +128,7 @@ h1 {
 }
 
 .dark {
-  background-color: rgb(39 39 42);
+  background-color: rgb(82 82 82);
   color: rgb(245 245 245);
   opacity: .9;
 }
@@ -144,4 +144,31 @@ h1 {
   background-color: rgb(75 85 99);
   color: rgb(245 245 245);
   opacity: .9;
+}
+
+
+@media (max-width: 600px) {
+  .water {
+    height: 360px;
+    width: 360px;
+  }
+
+  .water:before,
+  .water:after {
+    width: 360px;
+    height: 360px;
+  }
+}
+
+@media (max-width: 400px) {
+  .water {
+    height: 320px;
+    width: 320px;
+  }
+
+  .water:before,
+  .water:after {
+    width: 320px;
+    height: 320px;
+  }
 }

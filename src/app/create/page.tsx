@@ -80,7 +80,7 @@ const create = (): JSX.Element => {
           You need to login first to read create a blog
         </h1>
         <div className="w-full flex flex-row items-center w-full justify-center pt-10">
-          <button className="px-4 py-2 bg-cyan-100 text-neutral-600 rounded-md">
+          <button className="px-6 py-2 bg-cyan-100 text-neutral-600 rounded-md hover:bg-emerald-200 focus:bg-emerald-200">
             <a href="/signin">Login</a>
           </button>
         </div>

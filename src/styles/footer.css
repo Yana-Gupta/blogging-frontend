@@ -1,0 +1,15 @@
+.light-footer {
+    background-color: rgb(148 163 184);
+}
+
+.dark-footer {
+    background-color: rgb(38 38 38);
+}
+
+.light-copyright {
+    background-color: rgb(121, 128, 139);
+}
+
+.dark-coypright {
+    background-color: black;
+}

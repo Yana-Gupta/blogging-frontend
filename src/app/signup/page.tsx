@@ -154,7 +154,7 @@ const SignUp = (): JSX.Element => {
   }
 
   return (
-    <div className="items-center xl:mx-[400px] lg:mx-80 md:mx-40 sm:mx-20 mx-7 flex flex-row ">
+    <div className="items-center xl:mx-[400px] lg:mx-80 md:mx-40 sm:mx-20 mx-7 flex flex-row min-h-[90vh]">
       {loading ? <UILoading /> : formElement()}
     </div>
   )
