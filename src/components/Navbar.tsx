@@ -50,6 +50,11 @@ const Navbar = (): JSX.Element => {
     var coryright = document.getElementById("copyright")
     coryright?.classList.toggle("dark-copyright")
     coryright?.classList.toggle("light-copyright")
+
+    var sidenav = document.getElementById("sidenav")
+    sidenav?.classList.toggle("bg-slate-500/[.97]")
+    sidenav?.classList.toggle("bg-stone-800/[.97]")
+    sidenav?.classList.toggle("text-slate-50")
   }
 
   const beforeLogin_SignUp = (): JSX.Element => {
@@ -174,7 +179,7 @@ const Navbar = (): JSX.Element => {
     return (
       <button
         className={`h-10 w-10 ${
-          dark ? "bg-neutral-600" : "bg-white"
+          dark ? "bg-stone-500" : "bg-white"
         } rounded-full absolute top-12 right-8`}
         id="theme-change-btn"
         onClick={changeTheme}
@@ -216,7 +221,7 @@ const Navbar = (): JSX.Element => {
 
         <div
           id="sidenav"
-          className="fixed w-0 overflow-x-hidden transition-all duration-1000 left-0 top-0 pt-20 h-full bg-sky-200 z-[100] text-neutral-800 flex flex-col items-center"
+          className="fixed w-0 overflow-x-hidden transition-all duration-1000 left-0 top-0 pt-20 bg-slate-300/[.97] h-full z-[100] text-neutral-800 flex flex-col items-center"
         >
           <button
             className="absolute top-10 right-10"
