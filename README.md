@@ -1,9 +1,7 @@
-<div>
-
 # BLOGSREAD
 
 <div align="center">
-<img src="./readme_assets/1.png" width="1024px" />
+<img src="./readme_assets/1.png" width="800px" />
 </div>
 
 ### Prerequsites
@@ -59,14 +57,14 @@
 
 Clone the fronend and backend repositories, cd into both frontend and backend directories individually.
 
-### 1. Frontend
+### 1. [Frontend](https://github.com/Yana-Gupta/blogging-frontend)
 
 - Fork the frontend repository
 - Clone the repository(`git clone`)
 - Install the dependencies(`npm insall`)
 - Run dev command(`npm run dev`)
 
-### 2. Backend
+### 2. [Backend](https://github.com/Yana-Gupta/blogging-backend)
 
 - Fork the frontend repositry
 - Clone the repository(`git clone`)
@@ -75,4 +73,3 @@ Clone the fronend and backend repositories, cd into both frontend and backend di
 
 **NOTE:** Run backend start command before frontend start command.
 
-</div>
