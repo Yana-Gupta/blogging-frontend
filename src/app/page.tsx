@@ -1,12 +1,11 @@
 import React from "react"
 
 import UILoading from "@ui/loading"
+import Link from "next/link"
 
 // functions
 import { fetchBlogs } from "@api/blog/index"
-import Link from "next/link"
 
-// icons
 
 const Home = async (): Promise<JSX.Element> => {
   var blog: [] = []
@@ -33,7 +32,10 @@ const Home = async (): Promise<JSX.Element> => {
         </div>
       </div>
 
-      <div className="pb-8 px-8 tablet:pb-10 tablet:px-10 laptop:pb-20 laptop:px-14" id="read-blogs">
+      <div
+        className="pb-8 px-8 tablet:pb-10 tablet:px-10 laptop:pb-20 laptop:px-14"
+        id="read-blogs"
+      >
         <h1 className="text-center p-6"> Read Blogs </h1>
         {!blog ? (
           <UILoading />
@@ -70,7 +72,7 @@ const Home = async (): Promise<JSX.Element> => {
                   </div>
                 </div>
               )
-              // }
+            
             })}
           </div>
         )}
