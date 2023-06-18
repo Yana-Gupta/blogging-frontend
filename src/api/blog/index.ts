@@ -26,7 +26,9 @@ export async function blog(id: string): Promise<[] | undefined> {
   }
 }
 
-export async function fetchBlogsForUser(email: string): Promise<[] | undefined> {
+export async function fetchBlogsForUser(
+  email: string
+): Promise<[] | undefined> {
   if (email) {
     try {
       var blog: []
@@ -34,11 +36,10 @@ export async function fetchBlogsForUser(email: string): Promise<[] | undefined> 
       await fetchBlogs().then((res) => {
         if (res) {
           blog = res
-          userBlogs = blog.filter((blog) => blog["userEmail"] === "yana@me")
+          userBlogs = blog.filter((blog) => blog["userEmail"] === email)
         }
       })
       return userBlogs
-
     } catch (err) {
       console.error(err)
     }

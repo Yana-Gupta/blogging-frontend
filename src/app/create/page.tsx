@@ -3,7 +3,7 @@
 //css
 import { Container, FormControl, TextField } from "@mui/material"
 
-import { CSSProperties, ChangeEvent, useState, useEffect } from "react"
+import { CSSProperties, ChangeEvent, useState, useEffect, use } from "react"
 
 // Font format icons
 import FormatBoldIcon from "@mui/icons-material/FormatBold"
@@ -20,6 +20,7 @@ import { getUser } from "@api/auth/index"
 // Error
 import axios from "axios"
 import dynamic from "next/dynamic"
+import { get } from "http"
 
 // Interface
 interface IPost {
@@ -35,6 +36,8 @@ const create = (): JSX.Element => {
   const [underlined, setIsunderlined] = useState<boolean>(false)
   const [textAlignOption, settextAlignOption] =
     useState<CSSProperties["textAlign"]>("left")
+
+  const [user, setUser] = useState<any>(null)
 
   // content of the post
   const [content, setContent] = useState<IPost>({
@@ -68,9 +71,9 @@ const create = (): JSX.Element => {
   }
 
   // get the user
-  var user: any = null
   useEffect(() => {
-    user = getUser()
+    const res = getUser()
+    setUser(res)
   })
 
   if (!user) {
