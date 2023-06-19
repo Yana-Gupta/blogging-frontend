@@ -60,7 +60,6 @@ const SignUp = (): JSX.Element => {
 
       if (status === 201) {
         if (typeof window === undefined) return null
-        localStorage.setItem("user", JSON.stringify(data))
         setLoading(false)
         e.preventDefault()
         router.push("/")

@@ -3,7 +3,8 @@
 //css
 import { Container, FormControl, TextField } from "@mui/material"
 
-import { CSSProperties, ChangeEvent, useState, useEffect, use } from "react"
+import { CSSProperties, ChangeEvent, useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 // Font format icons
 import FormatBoldIcon from "@mui/icons-material/FormatBold"
@@ -20,7 +21,6 @@ import { getUser } from "@api/auth/index"
 // Error
 import axios from "axios"
 import dynamic from "next/dynamic"
-import { get } from "http"
 
 // Interface
 interface IPost {
@@ -36,6 +36,8 @@ const create = (): JSX.Element => {
   const [underlined, setIsunderlined] = useState<boolean>(false)
   const [textAlignOption, settextAlignOption] =
     useState<CSSProperties["textAlign"]>("left")
+
+  const router = useRouter()
 
   const [user, setUser] = useState<any>(null)
 
@@ -64,7 +66,11 @@ const create = (): JSX.Element => {
         }
       )
       console.log(data)
-      console.log("Post created successfully")
+      if (data.msg === "Post created successfully") {
+        if (typeof window === undefined) return null
+        event.preventDefault()
+        router.push("/")
+      }
     } catch (err) {
       console.log(err)
     }
